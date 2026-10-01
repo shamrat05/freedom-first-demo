@@ -84,7 +84,6 @@
       height: 58px;
       object-fit: contain;
       object-position: center;
-      mix-blend-mode: multiply;
     }
     .brand-fallback {
       display: none;
@@ -140,12 +139,7 @@
       right: -150px;
       top: -180px;
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.02fr .98fr;
-      align-items: center;
-      gap: 60px;
-    }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -209,12 +203,23 @@
       flex: 0 0 20px;
     }
 
-    .hero-visual { position: relative; min-height: 590px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 100%;
+    }
     .photo-shell {
-      position: absolute;
-      inset: 0 22px 38px 0;
+      position: relative;
+      width: 100%;
+      height: 520px;
       overflow: hidden;
-      border-radius: 34px;
+      border-radius: 32px;
       background:
         linear-gradient(145deg, rgba(93,124,134,.2), rgba(168,79,63,.12)),
         #d8e0de;
@@ -224,26 +229,28 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center 5%;
+      transform: scale(1.38);
+      transform-origin: 45% 15%;
     }
     .photo-shell:after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(21,39,43,.46), rgba(21,39,43,0) 48%);
+      background: linear-gradient(to top, rgba(21,39,43,.45), rgba(21,39,43,0) 45%);
       pointer-events: none;
     }
     .floating-card {
       position: absolute;
-      left: -28px;
-      bottom: 0;
-      width: min(340px, 80%);
-      padding: 22px;
-      border: 1px solid rgba(255,255,255,.72);
-      border-radius: 22px;
+      left: 20px;
+      bottom: 20px;
+      width: min(340px, calc(100% - 40px));
+      padding: 20px 22px;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 20px;
       background: rgba(255,255,255,.94);
       backdrop-filter: blur(14px);
-      box-shadow: 0 18px 50px rgba(24,37,40,.16);
+      box-shadow: 0 16px 40px rgba(24,37,40,.18);
     }
     .floating-card .label {
       color: var(--red);
@@ -252,8 +259,8 @@
       text-transform: uppercase;
       letter-spacing: .12em;
     }
-    .floating-card strong { display: block; margin-top: 6px; font-size: 19px; line-height: 1.35; color: var(--deep); }
-    .floating-card p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+    .floating-card strong { display: block; margin-top: 6px; font-size: 17px; line-height: 1.35; color: var(--deep); }
+    .floating-card p { margin: 6px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
     .trust-strip {
       padding: 0 0 76px;
@@ -532,11 +539,29 @@
 
     @media (max-width: 980px) {
       nav { display: none; }
-      .hero-grid, .story-grid, .choice-grid, .area-grid, .contact-shell { grid-template-columns: 1fr; }
-      .hero { padding-top: 48px; }
-      .hero-visual { min-height: 520px; margin-top: 10px; }
-      .photo-shell { right: 0; }
-      .floating-card { left: 18px; }
+      .hero-grid { display: flex; flex-direction: column; }
+      .hero { padding-top: 36px; }
+      .hero-visual {
+        order: -1;
+        width: 100%;
+        margin-bottom: 24px;
+      }
+      .photo-shell {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 10;
+        max-height: 420px;
+        border-radius: 26px;
+      }
+      .floating-card {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        width: min(320px, calc(100% - 32px));
+        padding: 16px 18px;
+        border-radius: 18px;
+      }
+      .story-grid, .choice-grid, .area-grid, .contact-shell { grid-template-columns: 1fr; }
       .trust-grid { grid-template-columns: 1fr 1fr; }
       .trust-item:nth-child(2) { border-right: 0; }
       .trust-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -555,14 +580,28 @@
       .brand img { width: 96px; height: 52px; }
       .nav-actions .btn-ghost { display: none; }
       .nav-actions .btn-primary { min-height: 42px; padding-inline: 15px; }
-      h1 { font-size: clamp(43px, 13vw, 62px); }
+      h1 { font-size: clamp(40px, 11vw, 54px); }
       .hero-copy > p { font-size: 16px; }
       .hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
       .hero-actions .btn { padding: 0 12px; }
       .hero-proof { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-      .hero-visual { min-height: 430px; }
-      .photo-shell { inset: 0 0 30px 0; border-radius: 26px; }
-      .floating-card { width: calc(100% - 32px); left: 16px; padding: 17px; }
+      .hero-visual { position: relative; margin-bottom: 24px; }
+      .photo-shell { aspect-ratio: 16 / 11.5; border-radius: 22px; }
+      .floating-card {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        margin-top: 0;
+        padding: 13px 15px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 10px 25px rgba(24, 37, 40, 0.16);
+      }
+      .floating-card strong { font-size: 14.5px; margin-top: 3px; }
+      .floating-card p { font-size: 12px; margin-top: 3px; }
       .trust-strip { padding-bottom: 52px; }
       .trust-grid { grid-template-columns: 1fr; }
       .trust-item, .trust-item:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -735,6 +774,7 @@
             <span class="proof-item"><span class="check">✓</span> Flat-rate pricing</span>
             <span class="proof-item"><span class="check">✓</span> Licensed &amp; insured</span>
             <span class="proof-item"><span class="check">✓</span> Residential &amp; commercial</span>
+          </div>
           
           <div class="google-badge-row" aria-label="5.0 Star Rating from Google Reviews">
             <div class="google-pill">
@@ -749,7 +789,6 @@
             </div>
             <span>Based on verified North Texas Google Reviews</span>
           </div>
-
         </div>
 
         <div class="hero-visual" aria-label="HVAC service photo">
